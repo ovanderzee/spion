@@ -1,0 +1,15 @@
+{
+  "name": "spion",
+  "version": "1.0.0",
+  "description": "Spy on the usage of a function or method",
+  "main": "module/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spyon",
+    "test"
+  ],
+  "author": "Onno van der Zee",
+  "license": "ISC"
+}
