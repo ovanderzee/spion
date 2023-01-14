@@ -1,0 +1,22 @@
+<script src="../dist/index.js"></script>
+<script type="text/javascript">
+    var logSpion = new Spion(console, 'log');
+
+    console.log('Hallo');
+    console.log('hoor');
+    console.log('je');
+    console.log('mij?');
+
+    console.info(logSpion);
+
+    console.info('------------------')
+
+    var logSpion2 = new Spion(console, 'log');
+
+    console.log('Ik');
+    console.log('hoor');
+    console.log('je');
+    console.log('niet!');
+
+    console.info(logSpion2);
+</script>
