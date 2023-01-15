@@ -1,22 +1,76 @@
-<script src="../dist/index.js"></script>
-<script type="text/javascript">
-    var logSpion = new Spion(console, 'log');
+<html>
+<head>
+    <script src="../temp/index.js"></script>
+    <script type="text/javascript">
+        var logSpion = spion(console, 'log', this);
 
-    console.log('Hallo');
-    console.log('hoor');
-    console.log('je');
-    console.log('mij?');
+        console.log('Hallo');
+        console.log('hoor');
+        console.log('je');
+        console.log('mij?');
 
-    console.info(logSpion);
+        console.info(logSpion.report()); // 4 CallInfo items
+        console.log(Object.keys(logSpion)) // ['report']
 
-    console.info('------------------')
 
-    var logSpion2 = new Spion(console, 'log');
+        console.info('------------------')
 
-    console.log('Ik');
-    console.log('hoor');
-    console.log('je');
-    console.log('niet!');
+        var logSpion2 = spion(console, 'log', this);
 
-    console.info(logSpion2);
-</script>
+        console.log('Ik');
+        console.log('hoor');
+        console.log('je');
+        console.log('niet!');
+
+        console.info(logSpion2.report()); // 4 CallInfo items
+        console.log("'report' in logSpion2", 'report' in logSpion2) // true
+    </script>
+    <style>
+        body {
+            background: #ffaa55;
+            color: #0055aa;
+            font: 16px/1.333 serif;
+            margin: 1em;
+        }
+        h1, h4, p, ul {
+            margin: 1ex 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            border-bottom: 2px currentColor;
+        }
+        h1 {
+            border-bottom-style: double;
+        }
+        h2, h3 {
+            border-bottom-style: solid;
+        }
+        h4, h5, h6 {
+            border-bottom-style: dotted;
+        }
+        code {
+            background: #d5d5d5;
+        }
+        code::before,
+        code::after {
+            content: '\00a0';
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        li::before {
+            content: '- ';
+        }
+    </style>
+</head>
+<body>
+    <h1>Spion</h1>
+    <p>first of all, run:</p>
+    <p><code>npm run build</code></p>
+    <ul>
+        <h4>then: </h4>
+        <li>comment out the export in ./temp/index.js</li>
+        <li>look at the console</li>
+    </ul>
+</body>
+</html>

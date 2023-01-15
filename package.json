@@ -9,7 +9,7 @@
     "test": "npm run build && cf coverage && c8 -r text node test/index.js"
   },
   "type": "module",
-  "types": "lib/spion.d.ts",
+  "types": "types/spion.d.ts",
   "keywords": [
     "spyon",
     "test"
