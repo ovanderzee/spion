@@ -1,4 +1,4 @@
-import {CallInfo, Spion} from './types'
+import { CallInfo, Spion } from './types'
 
 const clone = function (original: Function, context: object): Function {
     // clone function, see https://stackoverflow.com/a/62767649
@@ -10,7 +10,11 @@ const clone = function (original: Function, context: object): Function {
     return replica
 }
 
-const spion = function Spion (api: any, functionName: string, context: any): Spion {
+const spion = function Spion(
+    api: any,
+    functionName: string,
+    context: any,
+): Spion {
     const original: Function = api[functionName]
     const replica = clone(original, context)
     const callData: CallInfo[] = []

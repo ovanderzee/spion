@@ -2,11 +2,16 @@
   "name": "spion",
   "version": "1.0.0",
   "description": "Spy on the usage of a function or method",
-  "main": "module/index.js",
+  "main": "module/spion.js",
   "scripts": {
-    "build": "cf temp && tsc",
-    "coverage": "npm run build && cf coverage && c8 -r lcov node test/index.js",
-    "test": "npm run build && cf coverage && c8 -r text node test/index.js"
+    "prebuild": "cf dist module types && prettier './src/*.ts' --write",
+    "build": "rollup --config && tsc",
+    "precoverage": "npm run build && cf coverage",
+    "coverage": "c8 -r lcov node test/index.js",
+    "once": "npm run test",
+    "pretest": "npm run build && cf coverage",
+    "test": "exit 0",
+    "watch": "onchange --initial \"(src/*.ts|test/*.js)\" -- npm run once --silent"
   },
   "type": "module",
   "types": "types/spion.d.ts",
@@ -19,6 +24,11 @@
   "devDependencies": {
     "c8": "^7.12.0",
     "clear-folder": "^5.0.0",
+    "onchange": "^7.1.0",
+    "prettier": "^2.8.3",
+    "rollup": "^3.10.0",
+    "rollup-plugin-dts": "^5.1.1",
+    "rollup-plugin-esbuild": "^5.0.0",
     "typescript": "^4.9.4"
   }
 }
