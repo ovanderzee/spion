@@ -4,12 +4,21 @@
   "description": "Spy on the usage of a function or method",
   "main": "module/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cf temp && tsc",
+    "coverage": "npm run build && cf coverage && c8 -r lcov node test/index.js",
+    "test": "npm run build && cf coverage && c8 -r text node test/index.js"
   },
+  "type": "module",
+  "types": "lib/spion.d.ts",
   "keywords": [
     "spyon",
     "test"
   ],
   "author": "Onno van der Zee",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "c8": "^7.12.0",
+    "clear-folder": "^5.0.0",
+    "typescript": "^4.9.4"
+  }
 }
