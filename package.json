@@ -2,19 +2,19 @@
   "name": "spion",
   "version": "1.0.0",
   "description": "Spy on the usage of a function or method",
-  "main": "module/spion.js",
+  "main": "module/createSpion.js",
   "scripts": {
     "prebuild": "cf dist module types && prettier './src/*.ts' --write",
-    "build": "rollup --config && tsc",
+    "build": "rollup --config",
     "precoverage": "npm run build && cf coverage",
-    "coverage": "c8 -r lcov node test/index.js",
+    "coverage": "c8 -r lcov node temp/test.js",
     "once": "npm run test",
-    "pretest": "npm run build && cf coverage",
-    "test": "exit 0",
+    "pretest": "cf temp && tsc",
+    "test": "node temp/test.js",
     "watch": "onchange --initial \"(src/*.ts|test/*.js)\" -- npm run once --silent"
   },
   "type": "module",
-  "types": "types/spion.d.ts",
+  "types": "types/index.d.ts",
   "keywords": [
     "spyon",
     "test"

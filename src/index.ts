@@ -10,7 +10,7 @@ const clone = function (original: Function, context: object): Function {
     return replica
 }
 
-const spion = function Spion(
+const createSpion = function (
     api: any,
     functionName: string,
     context: any,
@@ -40,4 +40,4 @@ const spion = function Spion(
     }
 }
 
-export default spion
+export default createSpion

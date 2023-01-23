@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../dist/spion.js"></script>
+    <script src="../dist/createSpion.js"></script>
     <script type="text/javascript">
-        var logSpion = spion(console, 'log', this);
+        var logSpion = createSpion(console, 'log', this);
 
         console.log('Hallo');
         console.log('hoor');
@@ -16,7 +16,7 @@
 
         console.info('------------------')
 
-        var logSpion2 = spion(console, 'log', this);
+        var logSpion2 = createSpion(console, 'log', this);
 
         console.log('Ik');
         console.log('hoor');
@@ -66,10 +66,8 @@
 </head>
 <body>
     <h1>Spion</h1>
-    <p>first of all, run:</p>
-    <p><code>npm run build</code></p>
     <ul>
-        <h4>then: </h4>
+        <li>read code example</li>
         <li>look at the console</li>
     </ul>
 </body>

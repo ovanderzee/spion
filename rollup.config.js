@@ -1,7 +1,7 @@
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 
-const name = 'spion'
+const name = 'createSpion'
 
 export default [
     {
@@ -12,7 +12,7 @@ export default [
         output: [
             {
                 file: `dist/${name}.js`,
-                format: 'cjs',
+                format: 'umd',
                 name: name,
                 sourcemap: true,
             },
@@ -30,7 +30,7 @@ export default [
             dts()
         ],
         output: {
-            file: `types/${name}.d.ts`,
+            file: `types/index.d.ts`,
             format: 'es',
         },
     }

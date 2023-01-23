@@ -3,7 +3,7 @@ const clone = function(original, context) {
   const replica = Object.assign(bound, original);
   return replica;
 };
-const spion = function Spion2(api, functionName, context) {
+const createSpion = function(api, functionName, context) {
   const original = api[functionName];
   const replica = clone(original, context);
   const callData = [];
@@ -25,5 +25,5 @@ const spion = function Spion2(api, functionName, context) {
   };
 };
 
-export { spion as default };
-//# sourceMappingURL=spion.js.map
+export { createSpion as default };
+//# sourceMappingURL=createSpion.js.map
