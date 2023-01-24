@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Spy on the usage of a function or method",
   "main": "module/createSpion.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "prebuild": "cf dist module types && prettier './src/*.ts' --write",
     "build": "rollup --config",
-    "precoverage": "npm run build && cf coverage",
+    "precoverage": "cf temp coverage && tsc",
     "coverage": "c8 -r lcov node temp/test.js",
     "once": "npm run test",
     "pretest": "cf temp && tsc",
@@ -22,6 +25,7 @@
   "author": "Onno van der Zee",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "c8": "^7.12.0",
     "clear-folder": "^5.0.0",
     "onchange": "^7.1.0",
