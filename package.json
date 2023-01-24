@@ -11,10 +11,10 @@
     "build": "rollup --config",
     "precoverage": "cf temp coverage && tsc",
     "coverage": "c8 -r lcov node temp/test.js",
-    "once": "npm run test",
+    "once": "npm run prebuild && npm run test && npm run build",
     "pretest": "cf temp && tsc",
     "test": "node temp/test.js",
-    "watch": "onchange --initial \"(src/*.ts|test/*.js)\" -- npm run once --silent"
+    "watch": "onchange --initial \"src/*.ts\" -- npm run once --silent"
   },
   "type": "module",
   "types": "types/index.d.ts",
