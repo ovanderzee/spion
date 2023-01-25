@@ -47,6 +47,28 @@ test('report; returns call parameters', () => {
     )
 })
 
+test('lifecycle; cloned function works like the original function', () => {
+    const outputOriginal = subject.pureAddition(2, 9)
+
+    const testSpion: Spion = createSpion(subject, 'pureAddition')
+    const outputClone = subject.pureAddition(2, 9)
+    testSpion.report()
+    const outputAfterwards = subject.pureAddition(2, 9)
+
+    assert(
+        outputOriginal === outputAfterwards,
+        'original function should work like restored function',
+    )
+    assert(
+        outputAfterwards === outputClone,
+        'restored function should work like cloned function',
+    )
+    assert(
+        outputOriginal === outputClone,
+        'original function should work like cloned function',
+    )
+})
+
 test('lifecycle; report() restores the original function', () => {
     const referenceOriginal = subject.pureAddition
 
