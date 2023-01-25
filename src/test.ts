@@ -4,10 +4,17 @@ import createSpion from './index.js'
 import { CallInfo, Spion } from './types.js'
 
 let subject: any
+let myContext = {i: 11, n: 13}
 
-beforeEach(() => {
+beforeEach(function (this: any): void {
+    this.n = 9
+    this.i = 7
     subject = {
         pureAddition: (a: number, b: number): number => a + b,
+        mixedArrowAddition: (): number => this.i + this.n,
+        mixedThisAddition: function (): number {
+            return this.i + this.n
+        },
     }
 })
 
@@ -45,5 +52,41 @@ test('lifecycle; report() restores the original function', () => {
     assert(referenceOriginal === referenceAfterwards, 'original should be restored')
     assert(referenceAfterwards !== referenceClone, 'clone should be removed from object')
     assert(referenceOriginal !== referenceClone, 'clone should not be the original after restore')
+})
+
+test('arrow-function in test-function context', function (this: any) {
+    this.i = 3;
+    this.n = 5;
+    const testSpion: Spion = createSpion(subject, 'mixedArrowAddition', myContext)
+    const thisContextAddition = subject.mixedArrowAddition()
+    testSpion.report()
+
+    assert(thisContextAddition === 8, `return value should be 8, was: ${thisContextAddition}`)
+})
+
+test('arrow-function in test-file context', function (this: any) {
+    const testSpion: Spion = createSpion(subject, 'mixedArrowAddition', null)
+    const fileContextAddition = subject.mixedArrowAddition()
+    testSpion.report()
+
+    assert(fileContextAddition === 16, `return value should be 16, was: ${fileContextAddition}`)
+})
+
+test('contextual-function in test-function context', function (this: any) {
+    this.i = 3;
+    this.n = 5;
+    const testSpion: Spion = createSpion(subject, 'mixedThisAddition', this)
+    const thisContextAddition = subject.mixedThisAddition()
+    testSpion.report()
+
+    assert(thisContextAddition === 8, `return value should be 8, was: ${thisContextAddition}`)
+})
+
+test('contextual-function in test-file context', () => {
+    const testSpion: Spion = createSpion(subject, 'mixedThisAddition', myContext)
+    const fileContextAddition = subject.mixedThisAddition()
+    testSpion.report()
+
+    assert(fileContextAddition === 24, `return value should be 24, was: ${fileContextAddition}`)
 })
 
