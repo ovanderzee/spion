@@ -6,6 +6,6 @@ declare class Spion {
     report: () => CallInfo[];
 }
 
-declare const createSpion: (api: any, functionName: string, context: any) => Spion;
+declare const createSpion: (api: any, functionName: string, context?: any) => Spion;
 
 export { createSpion as default };

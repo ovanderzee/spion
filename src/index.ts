@@ -13,7 +13,7 @@ const clone = function (original: Function, context: object): Function {
 const createSpion = function (
     api: any,
     functionName: string,
-    context: any,
+    context?: any,
 ): Spion {
     const original: Function = api[functionName]
     const replica = clone(original, context)
