@@ -13,7 +13,7 @@
     "coverage": "c8 -r lcov node temp/test.js",
     "once": "npm run prebuild && npm run test && npm run build",
     "pretest": "cf temp && tsc",
-    "test": "node temp/test.js",
+    "test": "c8 -r text node temp/test.js",
     "watch": "onchange --initial \"src/*.ts\" -- npm run once --silent"
   },
   "type": "module",
