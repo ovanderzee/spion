@@ -14,12 +14,12 @@
       const replica = clone(original, context);
       const callData = [];
       const tracker = function() {
-        const currentCallInfo = {
+        const currentIntelligence = {
           args: Array.from(arguments),
           return: replica(...arguments)
         };
-        callData.push(currentCallInfo);
-        return currentCallInfo.return;
+        callData.push(currentIntelligence);
+        return currentIntelligence.return;
       };
       api[functionName] = tracker;
       const report = function() {

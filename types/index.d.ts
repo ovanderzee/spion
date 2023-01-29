@@ -1,9 +1,9 @@
-interface CallInfo {
+interface Intelligence {
     args: any[];
     return: any;
 }
 declare class Spion {
-    report: () => CallInfo[];
+    report: () => Intelligence[];
 }
 
 declare const createSpion: (api: any, functionName: string, context?: any) => Spion;

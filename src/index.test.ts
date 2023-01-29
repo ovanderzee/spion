@@ -1,11 +1,11 @@
 import assert from 'node:assert'
 import { beforeEach, describe, it } from 'node:test'
 import createSpion from './index.js'
-import { CallInfo, Spion } from './types.js'
+import { Intelligence, Spion } from './types.js'
 
 let subject: any
 
-const setSubject = function (this: any): void {
+const setRootContext = function (this: any): void {
     this.n = 9
     this.i = 7
     subject = {
@@ -18,12 +18,12 @@ const setSubject = function (this: any): void {
 }
 
 describe('usage', () => {
-    beforeEach(setSubject)
+    beforeEach(setRootContext)
 
     it('reporting call parameters', () => {
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         subject.pureAddition(3, 7)
-        const report: CallInfo[] = testSpion.report()
+        const report: Intelligence[] = testSpion.report()
 
         assert(
             report[0].args[0] === 3,
@@ -44,29 +44,34 @@ describe('usage', () => {
         subject.pureAddition(3, 7)
         subject.pureAddition(8, 12)
         subject.pureAddition(13, 17)
-        const report: CallInfo[] = testSpion.report()
+        const report: Intelligence[] = testSpion.report()
 
-        assert(report.length === 3, 'after using 3 times, the should be 3 results')
+        assert(
+            report.length === 3,
+            'after using 3 times, the should be 3 results',
+        )
     })
-
 
     it('report ends a spionage session', () => {
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         subject.pureAddition(3, 7)
         subject.pureAddition(8, 12)
         subject.pureAddition(13, 17)
-        const report: CallInfo[] = testSpion.report()
+        const report: Intelligence[] = testSpion.report()
         subject.pureAddition(9, 11)
         subject.pureAddition(19, 23)
-        const report2: CallInfo[] = testSpion.report()
+        const report2: Intelligence[] = testSpion.report()
 
-        assert(report.length === 3, 'after using 3 times, the should be 3 results')
+        assert(
+            report.length === 3,
+            'after using 3 times, the should be 3 results',
+        )
         assert(report === report2, 'report stops adding data')
     })
 })
 
 describe('lifecycle integrity', () => {
-    beforeEach(setSubject)
+    beforeEach(setRootContext)
 
     it('cloned function works like the original function', () => {
         const outputOriginal = subject.pureAddition(2, 9)
@@ -121,7 +126,7 @@ describe('lifecycle integrity', () => {
 
 describe('testing functions', () => {
     let myContext = { i: 11, n: 13 }
-    beforeEach(setSubject)
+    beforeEach(setRootContext)
 
     it('arrow-function in test-function context', function (this: any) {
         this.i = 3

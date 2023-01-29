@@ -1,8 +1,8 @@
-export interface CallInfo {
+export interface Intelligence {
     args: any[]
     return: any
 }
 
 export class Spion {
-    report!: () => CallInfo[]
+    report!: () => Intelligence[]
 }
