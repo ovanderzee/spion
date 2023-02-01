@@ -1,8 +1,6 @@
 import { Intelligence, Spion } from './types'
 
 const clone = function (original: Function, context: object): Function {
-    // clone function, see https://stackoverflow.com/a/62767649
-
     // Creates a new function, optionally preserving desired context.
     const bound = original.bind(context)
     // Shallow copies over function properties, if any.

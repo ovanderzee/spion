@@ -185,17 +185,20 @@ describe('testing functions', () => {
     })
 
     it('context is required for non-arrow functions', () => {
-        let testSpion: Spion
+        const testSpion: Spion = createSpion(subject, 'mixedThisAddition')
         let noContextAddition!: number
+        let report: Intelligence[]
         try {
-            testSpion = createSpion(subject, 'mixedThisAddition')
             noContextAddition = subject.mixedThisAddition()
-            testSpion.report()
+            report = testSpion.report()
+            assert(report.length === 10, 'this condition should not be met')
             assert(
-                noContextAddition === undefined,
+                noContextAddition === 100,
                 'this condition should not be met',
             )
         } catch (e) {
+            report = testSpion.report()
+            assert(report.length === 0, 'nothing should have been recorded')
             assert(
                 noContextAddition === undefined,
                 'testing a this-function requires a context to be set',
