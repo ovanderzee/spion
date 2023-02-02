@@ -3,11 +3,12 @@ const clone = function(original, context) {
   const replica = Object.assign(bound, original);
   return replica;
 };
+
 const createSpion = function(api, functionName, context) {
   const original = api[functionName];
   const replica = clone(original, context);
   const callData = [];
-  const tracker = function() {
+  const interceptor = function() {
     const currentIntelligence = {
       args: Array.from(arguments),
       return: replica(...arguments)
@@ -15,7 +16,7 @@ const createSpion = function(api, functionName, context) {
     callData.push(currentIntelligence);
     return currentIntelligence.return;
   };
-  api[functionName] = tracker;
+  api[functionName] = interceptor;
   const report = function() {
     api[functionName] = original;
     return callData;

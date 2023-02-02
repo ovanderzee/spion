@@ -1,7 +1,7 @@
 import assert from 'node:assert'
 import { beforeEach, describe, it } from 'node:test'
-import createSpion from './index.js'
-import { Intelligence, Spion } from './types.js'
+import createSpion from '../index.js'
+import { Intelligence, Spion } from '../types.js'
 
 let subject: any
 
@@ -185,6 +185,7 @@ describe('testing functions', () => {
     })
 
     it('context is required for non-arrow functions', () => {
+        // only happens in current test setup
         const testSpion: Spion = createSpion(subject, 'mixedThisAddition')
         let noContextAddition!: number
         let report: Intelligence[]

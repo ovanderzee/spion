@@ -1,12 +1,5 @@
-import { Intelligence, Spion } from './types'
-
-const clone = function (original: Function, context: object): Function {
-    // Creates a new function, optionally preserving desired context.
-    const bound = original.bind(context)
-    // Shallow copies over function properties, if any.
-    const replica = Object.assign(bound, original)
-    return replica
-}
+import { Intelligence, Spion } from './types.js'
+import { clone } from './functions.js'
 
 const createSpion = function (
     api: any,
@@ -17,7 +10,7 @@ const createSpion = function (
     const replica = clone(original, context)
     const callData: Intelligence[] = []
 
-    const tracker = function () {
+    const interceptor = function () {
         const currentIntelligence: Intelligence = {
             args: Array.from(arguments),
             return: replica(...arguments),
@@ -26,7 +19,7 @@ const createSpion = function (
         return currentIntelligence.return
     }
 
-    api[functionName] = tracker
+    api[functionName] = interceptor
 
     const report = function (): Intelligence[] {
         api[functionName] = original
