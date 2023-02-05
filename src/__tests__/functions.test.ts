@@ -1,6 +1,6 @@
 import assert from 'node:assert'
 import { beforeEach, describe, it } from 'node:test'
-import { clone } from '../functions.js'
+import { clone, sleep } from '../functions.js'
 
 let originalFunction: Function, cloneFunction: Function
 
@@ -38,4 +38,37 @@ describe('cloning', () => {
             'original function should work like cloned function',
         )
     })
+})
+
+describe('timers', () => {
+    let sleepResult = ''
+
+    it('first execution sequence', async () => {
+        setTimeout(() => { sleepResult += '1' }, 90)
+        setTimeout(() => { sleepResult += '3' }, 110)
+        await sleep(100)
+        sleepResult += '2'
+        // time here is 100, complete +3
+        await sleep(10)
+
+        assert(
+            sleepResult === '123',
+            `sleep should be the async setTimeout flattener (first), was: ${sleepResult}`,
+        )
+    })
+
+    it('quicker execution sequence', async () => {
+        setTimeout(() => { sleepResult += 'a' }, 40)
+        setTimeout(() => { sleepResult += 'c' }, 60)
+        await sleep(50)
+        sleepResult += 'b'
+        // time here is 50, complete +c
+        await sleep(10)
+
+        assert(
+            sleepResult === '123abc',
+            `async processes should be able to affect one another, was: ${sleepResult}`,
+        )
+    })
+
 })

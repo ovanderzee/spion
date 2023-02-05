@@ -5,3 +5,9 @@ export const clone = function (original: Function, context?: any): Function {
     const replica = Object.assign(bound, original)
     return replica
 }
+
+export const sleep = (duration: number) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration)
+    })
+}
