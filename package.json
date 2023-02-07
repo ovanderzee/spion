@@ -2,10 +2,8 @@
   "name": "spion",
   "version": "0.7.0",
   "description": "Spy on the usage of a function or method",
-  "main": "module/createSpion.js",
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "dist/createSpion.js",
+  "module": "module/createSpion.js",
   "scripts": {
     "prebuild": "cf dist module types && prettier './src/*.ts' --write",
     "build": "rollup --config",
@@ -24,6 +22,14 @@
   ],
   "author": "Onno van der Zee",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovanderzee/spion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ovanderzee/spion/issues"
+  },
+  "homepage": "https://github.com/ovanderzee/spion#readme",
   "devDependencies": {
     "@types/node": "^18.11.18",
     "c8": "^7.12.0",

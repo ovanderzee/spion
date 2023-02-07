@@ -3,7 +3,7 @@ Spy-on function, intended to use with the node:test functionality.
 Replaces the spied-upon function by an interceptor
 letting the function execute and return normally within its context.
 
-__Note that node:test is usable from nodejs version 18 onwards.__
+__Note that node:test is usable from nodejs v18.8.0, or v16.18.0 onwards.__
 
 ## Usage
 Just call the function with the
