@@ -21,12 +21,22 @@ const createSpion = function (
 
     api[functionName] = interceptor
 
-    const report = function (): Intelligence[] {
+    const debrief = function (): Intelligence[] {
+        destroy()
+        return report()
+    }
+
+    const destroy = function (): void {
         api[functionName] = original
+    }
+
+    const report = function (): Intelligence[] {
         return callData
     }
 
     return {
+        debrief: debrief,
+        destroy: destroy,
         report: report,
     }
 }

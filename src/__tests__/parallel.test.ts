@@ -31,15 +31,15 @@ describe('running in parallel', function () {
         await sleep(b)
         subject.mixedArrowAddition()
         await sleep(c)
-        const report1 = spion1.report()
+        const debrief1 = spion1.debrief()
 
         assert(
-            report1[0].return === 16,
-            `it should be 16, was: ${report1[0].return}`,
+            debrief1[0].return === 16,
+            `it should be 16, was: ${debrief1[0].return}`,
         )
         assert(
-            report1.length === 1,
-            `first spion should have bound one interceptor, was: ${report1.length}`,
+            debrief1.length === 1,
+            `first spion should have bound one interceptor, was: ${debrief1.length}`,
         )
     })
 
@@ -59,15 +59,15 @@ describe('running in parallel', function () {
         await sleep(a)
         subject.mixedArrowAddition()
         await sleep(b)
-        const report2 = spion2.report()
+        const debrief2 = spion2.debrief()
 
         assert(
-            report2[0].return === 16,
-            `it should be 16, was: ${report2[0].return}`,
+            debrief2[0].return === 16,
+            `it should be 16, was: ${debrief2[0].return}`,
         )
         assert(
-            report2.length === 1,
-            `second spion should have bound one interceptor, was: ${report2.length}`,
+            debrief2.length === 1,
+            `second spion should have bound one interceptor, was: ${debrief2.length}`,
         )
     })
 
@@ -77,18 +77,18 @@ describe('running in parallel', function () {
         await sleep(c)
         subject.mixedArrowAddition
         await sleep(a)
-        const report3 = spion3.report()
+        const debrief3 = spion3.debrief()
 
         // current situation: third function did not execute its own interceptor:
-        assert(report3.length === 0, `third spion appears not to have bound an interceptor, was: ${report3.length}`);
+        assert(debrief3.length === 0, `third spion appears not to have bound an interceptor, was: ${debrief3.length}`);
         // DEBT
         // assert(
-        //     report3[0].return === 16,
-        //     `it should be 16, was: ${report3[0].return}`,
+        //     debrief3[0].return === 16,
+        //     `it should be 16, was: ${debrief3[0].return}`,
         // )
         // assert(
-        //     report3.length === 1,
-        //     `third spion should have bound one interceptor, was: ${report3.length}`,
+        //     debrief3.length === 1,
+        //     `third spion should have bound one interceptor, was: ${debrief3.length}`,
         // )
     })
 

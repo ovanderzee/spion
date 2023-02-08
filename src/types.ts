@@ -4,5 +4,7 @@ export interface Intelligence {
 }
 
 export class Spion {
+    debrief!: () => Intelligence[]
+    destroy!: () => void
     report!: () => Intelligence[]
 }

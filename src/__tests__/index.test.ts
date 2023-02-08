@@ -20,53 +20,53 @@ const setRootContext = function (this: any): void {
 describe('usage', () => {
     beforeEach(setRootContext)
 
-    it('reporting call parameters', () => {
+    it('debriefing call parameters', () => {
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         subject.pureAddition(3, 7)
-        const report: Intelligence[] = testSpion.report()
+        const debrief: Intelligence[] = testSpion.debrief()
 
         assert(
-            report[0].args[0] === 3,
-            `first argument should be 3, was: ${report[0].args[0]}`,
+            debrief[0].args[0] === 3,
+            `first argument should be 3, was: ${debrief[0].args[0]}`,
         )
         assert(
-            report[0].args[1] === 7,
-            `last argument should be 7, was: ${report[0].args[1]}`,
+            debrief[0].args[1] === 7,
+            `last argument should be 7, was: ${debrief[0].args[1]}`,
         )
         assert(
-            report[0].return === 10,
-            `return value should be 10, was: ${report[0].return}`,
+            debrief[0].return === 10,
+            `return value should be 10, was: ${debrief[0].return}`,
         )
     })
 
-    it('report is a data-array', () => {
+    it('debrief is a data-array', () => {
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         subject.pureAddition(3, 7)
         subject.pureAddition(8, 12)
         subject.pureAddition(13, 17)
-        const report: Intelligence[] = testSpion.report()
+        const debrief: Intelligence[] = testSpion.debrief()
 
         assert(
-            report.length === 3,
+            debrief.length === 3,
             'after using 3 times, the should be 3 results',
         )
     })
 
-    it('report ends a spionage session', () => {
+    it('debrief ends a spionage session', () => {
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         subject.pureAddition(3, 7)
         subject.pureAddition(8, 12)
         subject.pureAddition(13, 17)
-        const report: Intelligence[] = testSpion.report()
+        const debrief: Intelligence[] = testSpion.debrief()
         subject.pureAddition(9, 11)
         subject.pureAddition(19, 23)
-        const report2: Intelligence[] = testSpion.report()
+        const debrief2: Intelligence[] = testSpion.debrief()
 
         assert(
-            report.length === 3,
+            debrief.length === 3,
             'after using 3 times, the should be 3 results',
         )
-        assert(report === report2, 'report stops adding data')
+        assert(debrief === debrief2, 'debrief stops adding data')
     })
 })
 
@@ -78,7 +78,7 @@ describe('lifecycle integrity', () => {
 
         const testSpion: Spion = createSpion(subject, 'pureAddition')
         const outputClone = subject.pureAddition(2, 9)
-        testSpion.report()
+        testSpion.debrief()
         const outputAfterwards = subject.pureAddition(2, 9)
 
         assert(
@@ -95,7 +95,7 @@ describe('lifecycle integrity', () => {
         )
     })
 
-    it('report() restores the original function', () => {
+    it('debrief() restores the original function', () => {
         const referenceOriginal = subject.pureAddition
 
         const testSpion: Spion = createSpion(subject, 'pureAddition')
@@ -106,7 +106,7 @@ describe('lifecycle integrity', () => {
             'clone should not be the original',
         )
 
-        testSpion.report()
+        testSpion.debrief()
         const referenceAfterwards = subject.pureAddition
 
         assert(
@@ -137,7 +137,7 @@ describe('testing functions', () => {
             myContext,
         )
         const thisContextAddition = subject.mixedArrowAddition()
-        testSpion.report()
+        testSpion.debrief()
 
         assert(
             thisContextAddition === 8,
@@ -148,7 +148,7 @@ describe('testing functions', () => {
     it('arrow-function in test-file context', function (this: any) {
         const testSpion: Spion = createSpion(subject, 'mixedArrowAddition')
         const fileContextAddition = subject.mixedArrowAddition()
-        testSpion.report()
+        testSpion.debrief()
 
         assert(
             fileContextAddition === 16,
@@ -161,7 +161,7 @@ describe('testing functions', () => {
         this.n = 5
         const testSpion: Spion = createSpion(subject, 'mixedThisAddition', this)
         const thisContextAddition = subject.mixedThisAddition()
-        testSpion.report()
+        testSpion.debrief()
 
         assert(
             thisContextAddition === 8,
@@ -176,7 +176,7 @@ describe('testing functions', () => {
             myContext,
         )
         const fileContextAddition = subject.mixedThisAddition()
-        testSpion.report()
+        testSpion.debrief()
 
         assert(
             fileContextAddition === 24,
@@ -188,18 +188,18 @@ describe('testing functions', () => {
         // only happens in current test setup
         const testSpion: Spion = createSpion(subject, 'mixedThisAddition')
         let noContextAddition!: number
-        let report: Intelligence[]
+        let debrief: Intelligence[]
         try {
             noContextAddition = subject.mixedThisAddition()
-            report = testSpion.report()
-            assert(report.length === 10, 'this condition should not be met')
+            debrief = testSpion.debrief()
+            assert(debrief.length === 10, 'this condition should not be met')
             assert(
                 noContextAddition === 100,
                 'this condition should not be met',
             )
         } catch (e) {
-            report = testSpion.report()
-            assert(report.length === 0, 'nothing should have been recorded')
+            debrief = testSpion.debrief()
+            assert(debrief.length === 0, 'nothing should have been recorded')
             assert(
                 noContextAddition === undefined,
                 'testing a this-function requires a context to be set',
