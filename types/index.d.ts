@@ -3,6 +3,8 @@ interface Intelligence {
     return: any;
 }
 declare class Spion {
+    debrief: () => Intelligence[];
+    destroy: () => void;
     report: () => Intelligence[];
 }
 

@@ -1,5 +1,5 @@
 import { Intelligence, Spion } from './types.js'
-import { clone } from './functions.js'
+import { clone, randomString } from './functions.js'
 
 const createSpion = function (
     api: any,
@@ -9,6 +9,7 @@ const createSpion = function (
     const original: Function = api[functionName]
     const replica = clone(original, context)
     const callData: Intelligence[] = []
+    const processId = randomString()
 
     const interceptor = function () {
         const currentIntelligence: Intelligence = {

@@ -6,6 +6,11 @@ export const clone = function (original: Function, context?: any): Function {
     return replica
 }
 
+export const randomString = (): string => {
+    const integer = Math.round(Math.random() * 10e9)
+    return integer.toString(36)
+}
+
 export const sleep = (duration: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, duration)
