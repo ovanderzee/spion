@@ -2,73 +2,11 @@
 <html>
 <head>
     <script src="../dist/createSpion.js"></script>
-    <script type="text/javascript">
-        var logSpion = createSpion(console, 'log', this);
-
-        console.log('Hallo');
-        console.log('hoor');
-        console.log('je');
-        console.log('mij?');
-
-        console.info(logSpion.debrief()); // 4 Intelligence items
-        console.log(Object.keys(logSpion)) // ['debrief']
-
-
-        console.info('------------------')
-
-        var logSpion2 = createSpion(console, 'log', this);
-
-        console.log('Ik');
-        console.log('hoor');
-        console.log('je');
-        console.log('niet!');
-
-        console.info(logSpion2.debrief()); // 4 Intelligence items
-        console.log("'debrief' in logSpion2", 'debrief' in logSpion2) // true
-    </script>
-    <style>
-        body {
-            background: #ffaa55;
-            color: #0055aa;
-            font: 16px/1.333 serif;
-            margin: 1em;
-        }
-        h1, h4, p, ul {
-            margin: 1ex 0;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            border-bottom: 2px currentColor;
-        }
-        h1 {
-            border-bottom-style: double;
-        }
-        h2, h3 {
-            border-bottom-style: solid;
-        }
-        h4, h5, h6 {
-            border-bottom-style: dotted;
-        }
-        code {
-            background: #d5d5d5;
-        }
-        code::before,
-        code::after {
-            content: '\00a0';
-        }
-        ul {
-            padding: 0;
-            list-style: none;
-        }
-        li::before {
-            content: '- ';
-        }
-    </style>
+    <link rel="stylesheet" href="spion.css" type="text/css" />
 </head>
 <body>
     <h1>Spion</h1>
-    <ul>
-        <li>read code example</li>
-        <li>look at the console</li>
-    </ul>
+    <p>We can spy in the browser too.</p>
+    <script src="./basic.js"></script>
 </body>
 </html>
