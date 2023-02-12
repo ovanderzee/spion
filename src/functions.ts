@@ -11,7 +11,7 @@ export const randomString = (): string => {
     return integer.toString(36)
 }
 
-export const sleep = (duration: number) => {
+export const sleep = (duration: number): Promise<void> => {
     return new Promise((resolve) => {
         setTimeout(resolve, duration)
     })

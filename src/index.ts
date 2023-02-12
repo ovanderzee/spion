@@ -13,6 +13,7 @@ const createSpion = function (
 
     const interceptor = function () {
         const currentIntelligence: Intelligence = {
+            id: processId,
             args: Array.from(arguments),
             return: replica(...arguments),
         }
@@ -32,7 +33,12 @@ const createSpion = function (
     }
 
     const report = function (): Intelligence[] {
-        return callData
+        const filteredCallData = callData.filter((cd) => cd.id === processId)
+        const mappedCallData = filteredCallData.map((cd) => {
+            delete cd.id
+            return cd
+        })
+        return mappedCallData
     }
 
     return {

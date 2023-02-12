@@ -12,9 +12,10 @@ const createSpion = function(api, functionName, context) {
   const original = api[functionName];
   const replica = clone(original, context);
   const callData = [];
-  randomString();
+  const processId = randomString();
   const interceptor = function() {
     const currentIntelligence = {
+      id: processId,
       args: Array.from(arguments),
       return: replica(...arguments)
     };
@@ -30,7 +31,12 @@ const createSpion = function(api, functionName, context) {
     api[functionName] = original;
   };
   const report = function() {
-    return callData;
+    const filteredCallData = callData.filter((cd) => cd.id === processId);
+    const mappedCallData = filteredCallData.map((cd) => {
+      delete cd.id;
+      return cd;
+    });
+    return mappedCallData;
   };
   return {
     debrief,

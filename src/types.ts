@@ -1,4 +1,5 @@
 export interface Intelligence {
+    id?: string
     args: any[]
     return: any
 }
