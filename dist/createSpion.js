@@ -14,21 +14,29 @@
       const original = api[functionName];
       const replica = clone(original, context);
       const callData = [];
+      const start = performance.now();
       const interceptor = function() {
         const currentIntelligence = {
           args: Array.from(arguments),
-          return: replica(...arguments)
+          return: replica(...arguments),
+          time: performance.now() - start
         };
         callData.push(currentIntelligence);
         return currentIntelligence.return;
       };
       api[functionName] = interceptor;
-      const report = function() {
-        api[functionName] = original;
+      const quit = () => {
+        if (api[functionName] !== original) {
+          api[functionName] = original;
+        }
+      };
+      const report = () => {
+        quit();
         return callData;
       };
       return {
-        report
+        report,
+        quit
       };
     };
 

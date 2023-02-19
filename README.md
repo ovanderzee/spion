@@ -17,13 +17,21 @@ const returnValue = api.theirMethod(arg1, arg2)
 const report: Intelligence[] = mySpion.report()
 
 assert(
-    report[0].args === [arg1, arg2] && report[0].return === returnValue,
-    'report should be an array of items holding arguments and return values'
+    report[0].args === [arg1, arg2] &&
+    report[0].return === returnValue &&
+    report[0].time < 10,
+    'report should be an array of items holding arguments, return values and time after createSpion'
 )
+
+// after all tests ended
+after(() => {
+    mySpion.quit()
+})
 ```
-The execution context is required when testing traditional, contextual functions.
+* The execution context is required when testing traditional, contextual functions.
 (and may thus be omitted when testing arrow-functions)
-The report function will remove the call interceptor and return a Intelligence object
+* The __report__ function will remove the call interceptor and return a Intelligence object
+* The __quit__ function ensures the interceptor is removed (normally not needed)
 
 Works as ES-module or CommonJS-module, and in the browser
 

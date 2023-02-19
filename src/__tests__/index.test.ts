@@ -26,6 +26,10 @@ describe('usage', () => {
         const report: Intelligence[] = testSpion.report()
 
         assert(
+            report[0].time < 100,
+            `report should be made soon after createSpion, was: ${report[0].time}`,
+        )
+        assert(
             report[0].args[0] === 3,
             `first argument should be 3, was: ${report[0].args[0]}`,
         )
@@ -48,7 +52,7 @@ describe('usage', () => {
 
         assert(
             report.length === 3,
-            'after using 3 times, the should be 3 results',
+            `after using 3 times, there should be 3 results, was: ${report.length}`,
         )
     })
 
@@ -64,7 +68,7 @@ describe('usage', () => {
 
         assert(
             report.length === 3,
-            'after using 3 times, the should be 3 results',
+            `after using 3 times, the should be 3 results, was: ${report.length}`,
         )
         assert(report === report2, 'report stops adding data')
     })
@@ -95,7 +99,7 @@ describe('lifecycle integrity', () => {
         )
     })
 
-    it('report() restores the original function', () => {
+    it('quit() restores the original function', () => {
         const referenceOriginal = subject.pureAddition
 
         const testSpion: Spion = createSpion(subject, 'pureAddition')
@@ -106,7 +110,7 @@ describe('lifecycle integrity', () => {
             'clone should not be the original',
         )
 
-        testSpion.report()
+        testSpion.quit()
         const referenceAfterwards = subject.pureAddition
 
         assert(
