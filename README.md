@@ -1,6 +1,6 @@
 # spion
 Spy-on function, intended to use with the node:test functionality.
-Replaces the spied-upon function by an interceptor
+Wraps the spied-upon function in an interceptor
 letting the function execute and return normally within its context.
 
 __Note that node:test is usable from nodejs v18.8.0, or v16.18.0 onwards.__
@@ -30,8 +30,13 @@ after(() => {
 ```
 * The execution context is required when testing traditional, contextual functions.
 (and may thus be omitted when testing arrow-functions)
-* The __report__ function will remove the call interceptor and return a Intelligence object
-* The __quit__ function ensures the interceptor is removed (normally not needed)
+* The __report__ method will remove the call interceptor and return a Intelligence object
+* The __quit__ method ensures the interceptor is removed (normally not needed)
+
+### Direction
+The calling arguments and the returning value can be determined.
+* The __withArgs__ method will call the interceptor with specified arguments
+* The __returnValue__ method will let the interceptor return with the specified value
 
 Works as ES-module or CommonJS-module, and in the browser
 

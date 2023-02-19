@@ -6,6 +6,8 @@ interface Intelligence {
 declare class Spion {
     report: () => Intelligence[];
     quit: () => void;
+    withArgs: (args: any) => void;
+    returnValue: (args: any) => void;
 }
 
 declare const createSpion: (api: any, functionName: string, context?: any) => Spion;

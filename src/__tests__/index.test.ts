@@ -5,11 +5,21 @@ import { Intelligence, Spion } from '../types.js'
 
 let subject: any
 
+interface RootContext {
+    n: number
+    i: number
+}
+
 const setRootContext = function (this: any): void {
     this.n = 9
     this.i = 7
     subject = {
         pureAddition: (a: number, b: number): number => a + b,
+        contextAddition: (a: number, b: number): void => {
+            this.i = a + b
+            return this.i
+        },
+        getContext: (): RootContext => this,
         mixedArrowAddition: (): number => this.i + this.n,
         mixedThisAddition: function (): number {
             return this.i + this.n
@@ -74,6 +84,50 @@ describe('usage', () => {
     })
 })
 
+describe('direct call parameters', () => {
+    beforeEach(setRootContext)
+
+    it('determine call arguments', () => {
+        const testSpion: Spion = createSpion(subject, 'contextAddition')
+        testSpion.withArgs([9, 13])
+        subject.contextAddition(3, 7)
+        const report: Intelligence[] = testSpion.report()
+        const context: RootContext = subject.getContext()
+
+        assert(
+            report[0].args[0] === 9 && report[0].args[1] === 13 && report[0].return === 22,
+            `function should be called with 9 and 13, was: ${report[0].args.join()}`,
+        )
+        assert(
+            report[0].return === context.i,
+            `the cloned function should be executed,
+                return: ${report[0].return},
+                context: ${context.i}
+            `,
+        )
+    })
+
+    it('determine return value', () => {
+        const testSpion: Spion = createSpion(subject, 'contextAddition')
+        testSpion.returnValue(7)
+        subject.contextAddition(3, 7)
+        const report: Intelligence[] = testSpion.report()
+        const context: RootContext = subject.getContext()
+
+        assert(
+            report[0].args[0] === 3 && report[0].args[1] === 7 && report[0].return === 7,
+            `function should be return 7, was: ${report[0].return}`,
+        )
+        assert(
+            report[0].args[0] + report[0].args[1] === context.i,
+            `the cloned function should be executed,
+                return: ${report[0].return},
+                context: ${context.i}
+            `,
+        )
+    })
+})
+
 describe('lifecycle integrity', () => {
     beforeEach(setRootContext)
 
@@ -87,15 +141,24 @@ describe('lifecycle integrity', () => {
 
         assert(
             outputOriginal === outputAfterwards,
-            'original function should work like restored function',
+            `original function should work like restored function,
+                original: ${outputOriginal},
+                restored: ${outputAfterwards},
+            `,
         )
         assert(
             outputAfterwards === outputClone,
-            'restored function should work like cloned function',
+            `restored function should work like cloned function,
+                restored: ${outputAfterwards},
+                clone: ${outputClone},
+            `,
         )
         assert(
             outputOriginal === outputClone,
-            'original function should work like cloned function',
+            `original function should work like cloned function,
+                original: ${outputOriginal},
+                clone: ${outputClone},
+            `,
         )
     })
 
@@ -129,7 +192,7 @@ describe('lifecycle integrity', () => {
 })
 
 describe('testing functions', () => {
-    let myContext = { i: 11, n: 13 }
+    const myContext = { i: 11, n: 13 }
     beforeEach(setRootContext)
 
     it('arrow-function in test-function context', function (this: any) {
@@ -145,7 +208,7 @@ describe('testing functions', () => {
 
         assert(
             thisContextAddition === 8,
-            `return value should be 8, was: ${thisContextAddition}`,
+            `return value should be 8 as in this test-function, was: ${thisContextAddition}`,
         )
     })
 
@@ -156,7 +219,7 @@ describe('testing functions', () => {
 
         assert(
             fileContextAddition === 16,
-            `return value should be 16, was: ${fileContextAddition}`,
+            `return value should be 16 as in the root-context-function, was: ${fileContextAddition}`,
         )
     })
 
@@ -169,7 +232,7 @@ describe('testing functions', () => {
 
         assert(
             thisContextAddition === 8,
-            `return value should be 8, was: ${thisContextAddition}`,
+            `return value should be 8 as in this test-function, was: ${thisContextAddition}`,
         )
     })
 
@@ -184,7 +247,7 @@ describe('testing functions', () => {
 
         assert(
             fileContextAddition === 24,
-            `return value should be 24, was: ${fileContextAddition}`,
+            `return value should be 24 as in the added context, was: ${fileContextAddition}`,
         )
     })
 

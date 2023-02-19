@@ -1,4 +1,4 @@
-import { Intelligence, Spion } from './types.js'
+import { Intelligence, Direction, Spion } from './types.js'
 import { clone } from './functions.js'
 
 const createSpion = function (
@@ -8,13 +8,20 @@ const createSpion = function (
 ): Spion {
     const original: Function = api[functionName]
     const replica = clone(original, context)
+    const callDirection: Direction = {}
     const callData: Intelligence[] = []
     const start = performance.now()
 
     const interceptor = function () {
+        const args =
+            'withArgs' in callDirection ? callDirection.withArgs : arguments
+        const returnValue = replica(...args)
         const currentIntelligence: Intelligence = {
-            args: Array.from(arguments),
-            return: replica(...arguments),
+            args: Array.from(args),
+            return:
+                'returnValue' in callDirection
+                    ? callDirection.returnValue
+                    : returnValue,
             time: performance.now() - start,
         }
         callData.push(currentIntelligence)
@@ -34,9 +41,19 @@ const createSpion = function (
         return callData
     }
 
+    const withArgs = (args: any[]): void => {
+        callDirection.withArgs = args
+    }
+
+    const returnValue = (value: any): void => {
+        callDirection.returnValue = value
+    }
+
     return {
         report: report,
         quit: quit,
+        withArgs: withArgs,
+        returnValue: returnValue,
     }
 }
 
