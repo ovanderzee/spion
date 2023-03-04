@@ -1,0 +1,36 @@
+
+body {
+    background: #ffaa55;
+    color: #0055aa;
+    font: 16px/1.333 serif;
+    margin: 1em;
+}
+h1, h4, p, ul {
+    margin: 1ex 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    border-bottom: 2px currentColor;
+}
+h1 {
+    border-bottom-style: double;
+}
+h2, h3 {
+    border-bottom-style: solid;
+}
+h4, h5, h6 {
+    border-bottom-style: dotted;
+}
+code {
+    background: #d5d5d5;
+}
+code::before,
+    code::after {
+    content: '\00a0';
+}
+ul {
+    padding: 0;
+    list-style: none;
+}
+li::before {
+    content: '- ';
+}
