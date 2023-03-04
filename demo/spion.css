@@ -1,4 +1,3 @@
-
 body {
     background: #ffaa55;
     color: #0055aa;
@@ -8,17 +7,21 @@ body {
 h1, h4, p, ul {
     margin: 1ex 0;
 }
-h1, h2, h3, h4, h5, h6 {
-    border-bottom: 2px currentColor;
-}
 h1 {
-    border-bottom-style: double;
+    border-bottom: double 4px currentColor;;
+}
+h2, h3, h4, h5, h6 {
+    border-bottom: 2px currentColor;
 }
 h2, h3 {
     border-bottom-style: solid;
 }
 h4, h5, h6 {
     border-bottom-style: dotted;
+}
+pre {
+    margin: .333ex 0;
+    font-size: 80%;
 }
 code {
     background: #d5d5d5;
@@ -34,3 +37,4 @@ ul {
 li::before {
     content: '- ';
 }
+

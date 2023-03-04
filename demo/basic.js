@@ -1,22 +1,24 @@
 
-    const logSpion = createSpion(console, 'log', window);
+const basics = []
 
-    console.log('Do');
-    console.log('you');
-    console.log('hear');
-    console.log('me?');
+const basicSpion = createSpion(console, 'info', this)
+basics.push('const basicSpion = createSpion(console, \'info\', this)')
+basics.push(`// Spion methods: ${formattedText(insbject(basicSpion))}`)
 
-    console.info(logSpion.report()); // 4 Intelligence items
-    console.log(Object.keys(logSpion)) // ['report']
+console.info('Hello');
+basics.push(`console.info('Hello')`)
+console.info('I heard a lot about you!');
+basics.push(`console.info('I heard a lot about you!');`)
 
-    console.info('------------------')
+const basicReport = basicSpion.report()
+basics.push('const basicReport = basicSpion.report()')
+console.log(`basic: `, basicReport);
+basics.push(`// report: ${formattedText(insbject(basicReport))}`)
 
-    const logSpion2 = createSpion(console, 'log', window);
-
-    console.log('Loud');
-    console.log('and');
-    console.log('clear!');
-
-    console.info(logSpion2.report()); // 3 Intelligence items
-    console.log("'report' in logSpion2", 'report' in logSpion2) // true
-
+document.write(`
+    <ol>${
+        basics
+            .map(text => listText(text))
+            .join('\n')
+    }</ol>
+`)
