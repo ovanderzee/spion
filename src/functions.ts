@@ -5,3 +5,14 @@ export const clone = function (original: Function, context?: any): Function {
     const replica = Object.assign(bound, original)
     return replica
 }
+
+export const randomString = (): string => {
+    const integer = Math.round(Math.random() * 10e9)
+    return integer.toString(36)
+}
+
+export const sleep = (duration: number): Promise<void> => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration)
+    })
+}

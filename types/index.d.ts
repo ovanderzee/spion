@@ -1,10 +1,11 @@
 interface Intelligence {
+    id?: string;
     args: any[];
     return: any;
     time: number;
 }
 declare class Spion {
-    report: () => Intelligence[];
+    report: (reportId?: string) => Intelligence[];
     quit: () => void;
     withArgs: (args: any) => void;
     returnValue: (args: any) => void;

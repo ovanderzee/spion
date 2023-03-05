@@ -1,5 +1,5 @@
 import { Intelligence, Direction, Spion } from './types.js'
-import { clone } from './functions.js'
+import { clone, randomString } from './functions.js'
 
 const createSpion = function (
     api: any,
@@ -11,6 +11,7 @@ const createSpion = function (
     const callDirection: Direction = {}
     const callData: Intelligence[] = []
     const start = performance.now()
+    const processId = randomString()
 
     const interceptor = function () {
         const args =
@@ -23,6 +24,7 @@ const createSpion = function (
                     ? callDirection.returnValue
                     : returnValue,
             time: performance.now() - start,
+            id: processId,
         }
         callData.push(currentIntelligence)
         return currentIntelligence.return
@@ -36,9 +38,17 @@ const createSpion = function (
         }
     }
 
-    const report = (): Intelligence[] => {
+    const report = (reportId?: string): Intelligence[] => {
         quit()
-        return callData
+        if (!reportId) {
+            return callData
+        }
+        const filteredCallData = callData.filter((cd) => cd.id === reportId)
+        const mappedCallData = filteredCallData.map((cd) => {
+            delete cd.id
+            return cd
+        })
+        return filteredCallData
     }
 
     const withArgs = (args: any[]): void => {
