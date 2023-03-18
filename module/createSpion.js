@@ -10,6 +10,10 @@ const createSpion = function(api, functionName, context) {
   const callDirection = {};
   const callData = [];
   const start = performance.now();
+  window.addEventListener(
+    "interception",
+    (event) => console.log(JSON.stringify(event.detail))
+  );
   const interceptor = function() {
     const args = "withArgs" in callDirection ? callDirection.withArgs : arguments;
     const returnValue2 = replica(...args);
@@ -18,6 +22,10 @@ const createSpion = function(api, functionName, context) {
       return: "returnValue" in callDirection ? callDirection.returnValue : returnValue2,
       time: performance.now() - start
     };
+    const interception = new CustomEvent("interception", {
+      detail: currentIntelligence
+    });
+    window.dispatchEvent(interception);
     callData.push(currentIntelligence);
     return currentIntelligence.return;
   };

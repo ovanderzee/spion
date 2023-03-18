@@ -1,7 +1,7 @@
 
 const basics = []
 
-const basicSpion = createSpion(console, 'info', this)
+const basicSpion = createSpion(console, 'info', document)
 basics.push('const basicSpion = createSpion(console, \'info\', this)')
 basics.push(`// Spion methods: ${formattedText(insbject(basicSpion))}`)
 
