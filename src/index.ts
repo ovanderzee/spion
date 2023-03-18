@@ -1,13 +1,14 @@
 import { Intelligence, Direction, Spion } from './types.js'
 import { clone } from './functions.js'
+import { MethodStore, storage } from './storage'
 
 const createSpion = function (
     api: any,
     functionName: string,
     context?: any,
 ): Spion {
-    const original: Function = api[functionName]
-    const replica = clone(original, context)
+    const store: MethodStore = storage.query(api, functionName)
+    const replica = clone(store.origin, context)
     const callDirection: Direction = {}
     const callData: Intelligence[] = []
     const start = performance.now()
@@ -31,8 +32,9 @@ const createSpion = function (
     api[functionName] = interceptor
 
     const quit = (): void => {
-        if (api[functionName] !== original) {
-            api[functionName] = original
+        const outstanding = storage.unload(api, functionName)
+        if (!outstanding) {
+            api[functionName] = store.origin
         }
     }
 
