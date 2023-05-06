@@ -1,6 +1,6 @@
 {
   "name": "spion",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Spy on the usage of a function or method",
   "main": "dist/createSpion.js",
   "module": "module/createSpion.js",
@@ -32,14 +32,14 @@
   },
   "homepage": "https://github.com/ovanderzee/spion#readme",
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "c8": "^7.12.0",
+    "@types/node": "^18.16.5",
+    "c8": "^7.13.0",
     "clear-folder": "^5.0.0",
     "onchange": "^7.1.0",
-    "prettier": "^2.8.3",
-    "rollup": "^3.10.0",
-    "rollup-plugin-dts": "^5.1.1",
+    "prettier": "^2.8.8",
+    "rollup": "^3.21.5",
+    "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-esbuild": "^5.0.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   }
 }
