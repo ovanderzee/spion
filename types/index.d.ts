@@ -3,7 +3,7 @@ interface Intelligence {
     return: any;
     time: number;
 }
-declare class Spion {
+interface Spion {
     report: () => Intelligence[];
     quit: () => void;
     withArgs: (args: any) => void;

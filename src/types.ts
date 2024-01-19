@@ -9,9 +9,9 @@ export interface Direction {
     returnValue?: any
 }
 
-export class Spion {
-    report!: () => Intelligence[]
-    quit!: () => void
-    withArgs!: (args: any) => void
-    returnValue!: (args: any) => void
+export interface Spion {
+    report: () => Intelligence[]
+    quit: () => void
+    withArgs: (args: any) => void
+    returnValue: (args: any) => void
 }
