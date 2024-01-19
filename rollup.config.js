@@ -11,7 +11,7 @@ export default [
         ],
         output: [
             {
-                file: `dist/${name}.js`,
+                file: `dist/${name}.cjs`,
                 format: 'umd',
                 name: name,
                 sourcemap: true,

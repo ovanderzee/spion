@@ -54,4 +54,4 @@
     return createSpion;
 
 }));
-//# sourceMappingURL=createSpion.js.map
+//# sourceMappingURL=createSpion.cjs.map
