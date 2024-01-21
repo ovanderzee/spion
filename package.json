@@ -3,7 +3,10 @@
   "version": "0.9.0",
   "description": "Spy on the usage of a function or method",
   "main": "dist/createSpion.js",
-  "module": "module/createSpion.js",
+  "exports": {
+    "import": "./dist/createSpion.js",
+    "require": "./dist/createSpion.cjs"
+  },
   "scripts": {
     "clear": "cf coverage dist module temp types",
     "prebuild": "cf dist module types && prettier './src/*.ts' --write",

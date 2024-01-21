@@ -17,7 +17,7 @@ export default [
                 sourcemap: true,
             },
             {
-                file: `module/${name}.js`,
+                file: `dist/${name}.js`,
                 format: 'esm',
                 name: name,
                 sourcemap: true,
