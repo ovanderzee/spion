@@ -3,8 +3,6 @@ Spy-on function, intended to use with the node:test functionality.
 Wraps the spied-upon function in an interceptor
 letting the function execute and return normally within its context.
 
-__Note that node:test is usable from nodejs v18.8.0, or v16.18.0 onwards.__
-
 ## Usage
 Just call the function with the
 api-object, the name of the function and the execution context

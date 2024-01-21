@@ -1,6 +1,6 @@
 {
   "name": "spion",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Spy on the usage of a function or method",
   "main": "dist/createSpion.js",
   "exports": {
@@ -8,8 +8,8 @@
     "require": "./dist/createSpion.cjs"
   },
   "scripts": {
-    "clear": "cf coverage dist module temp types",
-    "prebuild": "cf dist module types && prettier './src/*.ts' --write",
+    "clear": "cf coverage dist temp types",
+    "prebuild": "cf dist types && prettier './src/*.ts' --write",
     "build": "rollup --config",
     "precoverage": "cf temp coverage && tsc",
     "coverage": "c8 -r lcov node temp/__tests__/test.js",
