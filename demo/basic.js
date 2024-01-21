@@ -15,10 +15,10 @@ basics.push('const basicReport = basicSpion.report()')
 console.log(`basic: `, basicReport);
 basics.push(`// report: ${formattedText(insbject(basicReport))}`)
 
-document.write(`
+document.getElementById('basic').innerHTML += `
     <ol>${
         basics
             .map(text => listText(text))
             .join('\n')
     }</ol>
-`)
+`

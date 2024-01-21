@@ -35,10 +35,10 @@ determs.push('const determReport = determSpion.report()')
 console.log(`determination: `, determReport);
 determs.push(`// report: ${formattedText(insbject(determReport))}`)
 
-document.write(`
+document.getElementById('determine').innerHTML += `
     <ol>${
-    determs
-        .map(text => listText(text))
-        .join('\n')
-}</ol>
-`)
+        determs
+            .map(text => listText(text))
+            .join('\n')
+    }</ol>
+`

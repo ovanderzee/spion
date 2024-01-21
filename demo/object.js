@@ -44,10 +44,10 @@ classMethods.push('const classStaticMethodReport = classStaticMethodSpion.report
 console.log(`staticMethod report: `, classStaticMethodReport);
 classMethods.push(`// report: ${formattedText(insbject(classStaticMethodReport))}`)
 
-document.write(`
+document.getElementById('object').innerHTML += `
     <ol>${
-    classMethods
-        .map(text => listText(text))
-        .join('\n')
-}</ol>
-`)
+        classMethods
+            .map(text => listText(text))
+            .join('\n')
+    }</ol>
+`
